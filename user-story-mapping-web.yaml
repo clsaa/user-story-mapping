@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: user-story-mapping-web
+  namespace: usm
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: user-story-mapping-web
+    spec:
+      containers:
+        - name: user-story-mapping-web
+          image: registry.cn-beijing.aliyuncs.com/clsaa/user-story-mapping-web
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 7788
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-story-mapping-web
+  namespace: usm
+  labels:
+    app: user-story-mapping-web
+spec:
+  ports:
+    - port: 7788
+      protocol: TCP
+      targetPort: 7788
+  selector:
+    app: user-story-mapping-web
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: user-story-mapping-web
+  namespace: usm
+spec:
+  rules:
+    - host: usm.homework.clsaa.com
+      http:
+        paths:
+          - backend:
+              serviceName: user-story-mapping-web
+              servicePort: 7788
