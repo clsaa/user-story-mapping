@@ -60,7 +60,7 @@ $(function () {
         });
     });
 
-    $(".my-login-validation").submit(function () {
+    $("#login-button").click(function () {
         var form = $(this);
         if (form[0].checkValidity() === false) {
             event.preventDefault();
@@ -72,12 +72,16 @@ $(function () {
             type: 'POST',
             url: "http://localhost:7788/v1/login",
             contentType: "application/json",
+            dataType:"application/json",
             data: JSON.stringify({
                 "email": $("#email").val(),
                 "password": $("#password").val()
             }),
             success: function (e) {
                 console.log(e);
+            },
+            error: function (e) {
+                console.log(e)
             }
         });
     });
