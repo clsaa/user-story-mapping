@@ -14,4 +14,12 @@ public interface UserRepository extends MongoRepository<User, String> {
      * @return {@link User}
      */
     User findUserById(String id);
+
+    /**
+     * 根据用户名查询用户
+     *
+     * @param username 用户名
+     * @return {@link User}
+     */
+    User findUserByUsername(String username);
 }

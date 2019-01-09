@@ -29,8 +29,13 @@ public class UserService {
         return BeanUtils.convertType(existUser, UserV1.class);
     }
 
-    public UserV1 findUser(String id) {
+    public UserV1 findUserById(String id) {
         User existUser = this.userRepository.findUserById(id);
+        return BeanUtils.convertType(existUser, UserV1.class);
+    }
+
+    public UserV1 findUserByUsername(String username) {
+        User existUser = this.userRepository.findUserByUsername(username);
         return BeanUtils.convertType(existUser, UserV1.class);
     }
 }
