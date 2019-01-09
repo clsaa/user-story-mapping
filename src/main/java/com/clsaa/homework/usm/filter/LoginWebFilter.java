@@ -24,6 +24,9 @@ public class LoginWebFilter implements WebFilter {
     private static final String JS_PATH = "js";
     private static final String IMG_PATH = "img";
     private static final String HTML_FILE = ".html";
+    private static final String SWAGGER = "swagger";
+    private static final String SWAGGER_API_DOCS = "/v2/api-docs";
+    private static final String SWAGGER_WEB_JAR = "webjars";
     private static final String LOGIN_FORWARD_PATH = "/login";
 
     private boolean shouldFilter(String path) {
@@ -31,6 +34,9 @@ public class LoginWebFilter implements WebFilter {
                 && !path.contains(CSS_PATH)
                 && !path.contains(JS_PATH)
                 && !path.contains(IMG_PATH)
+                && !path.contains(SWAGGER)
+                && !path.contains(SWAGGER_API_DOCS)
+                && !path.contains(SWAGGER_WEB_JAR)
                 && !path.contains(HTML_FILE);
     }
 

@@ -17,11 +17,14 @@ public class UserController {
 
     @PostMapping("/v1/users")
     public UserV1 addUserV1(@RequestBody UserDtoV1 userDtoV1) {
-        return this.userService.addUser(userDtoV1.getUsername(), userDtoV1.getPassword());
+        return this.userService.addUser(userDtoV1.getUsername(),
+                userDtoV1.getPassword(),
+                userDtoV1.getEmail(),
+                userDtoV1.getNickname());
     }
 
     @GetMapping("/v1/users/{id}")
-    public UserV1 findUserByIdV1(@PathVariable("id") String id){
+    public UserV1 findUserByIdV1(@PathVariable("id") String id) {
         return this.userService.findUserById(id);
     }
 }

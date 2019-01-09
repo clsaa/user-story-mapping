@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.reactive.function.server.*;
@@ -33,20 +32,21 @@ public class LoginController {
     private UserService userService;
 
     private static final HandlerFunction<ServerResponse> INDEX_REDIRECT_FUNCTION = s ->
-            ServerResponse.permanentRedirect(URI.create("/login.html")).build();
+            ServerResponse.temporaryRedirect(URI.create("/login.html")).build();
     private static final HandlerFunction<ServerResponse> LOGIN_REDIRECT_FUNCTION = s ->
-            ServerResponse.permanentRedirect(URI.create("/login.html")).build();
+            ServerResponse.temporaryRedirect(URI.create("/login.html")).build();
+
+
     @Bean
     RouterFunction<ServerResponse> routerFunction() {
         return RouterFunctions
-                .route(RequestPredicates.GET("/"), INDEX_REDIRECT_FUNCTION)
-                .andRoute(RequestPredicates.GET("/index"), INDEX_REDIRECT_FUNCTION)
+                .route(RequestPredicates.GET("/index"), INDEX_REDIRECT_FUNCTION)
                 .andRoute(RequestPredicates.GET("/login"), LOGIN_REDIRECT_FUNCTION);
     }
 
     @PostMapping("/v1/login")
     public LoginUserV1 login(@RequestBody UserDtoV1 userDtoV1, ServerWebExchange exchange) {
-        UserV1 user = this.userService.findUserByUsername(userDtoV1.getUsername());
+        UserV1 user = this.userService.findUserByEmail(userDtoV1.getEmail());
         BizAssert.found(user != null, BizCodes.INVALID_LOGIN);
         LoginUserV1 loginUserV1 = BeanUtils.convertType(user, LoginUserV1.class);
         if (user.getPassword().equals(userDtoV1.getPassword())) {

@@ -27,7 +27,15 @@ public interface BizCodes {
      */
     BizCode ERROR_UPDATE = new BizCode(1012, "更新失败");
     /**
-     * 数据库更新失败
+     * 用户名密码错误
      */
     BizCode INVALID_LOGIN = new BizCode(1013, "用户名密码错误");
+    /**
+     * 用户名已存在
+     */
+    BizCode DUPLICATED_USERNAME = new BizCode(1014, "用户名已存在");
+    /**
+     * 邮箱已存在
+     */
+    BizCode DUPLICATED_EMAIL = new BizCode(1015, "邮箱已存在");
 }

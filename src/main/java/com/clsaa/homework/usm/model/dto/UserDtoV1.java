@@ -2,8 +2,6 @@ package com.clsaa.homework.usm.model.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 /**
  * @author joyren
  */
