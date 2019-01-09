@@ -40,7 +40,8 @@ public class LoginController {
     @Bean
     RouterFunction<ServerResponse> routerFunction() {
         return RouterFunctions
-                .route(RequestPredicates.GET("/index"), INDEX_REDIRECT_FUNCTION)
+                .route(RequestPredicates.GET("/"), INDEX_REDIRECT_FUNCTION)
+                .andRoute(RequestPredicates.GET("/index"), INDEX_REDIRECT_FUNCTION)
                 .andRoute(RequestPredicates.GET("/login"), LOGIN_REDIRECT_FUNCTION);
     }
 
