@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     @Field("id")
-    private Long id;
+    private String id;
     @Field("username")
     private String username;
     @Field("password")
@@ -30,7 +31,7 @@ public class User {
     @Field("nickname")
     private String nickname;
     @Field("ctime")
-    private LocalDateTime ctime;
+    private Timestamp ctime;
     @Field("mtime")
-    private LocalDateTime mtime;
+    private Timestamp mtime;
 }
