@@ -4,6 +4,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.convert.CustomConversions;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.*;
@@ -14,40 +15,40 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author joyren
+ */
 @Configuration
 public class MongoDBConfig {
 
     @Bean(name = "mongoTemplate")
     public MongoTemplate getMongoTemplate(MongoDbFactory dbFactory, MappingMongoConverter converter) {
-        MongoTemplate template = new MongoTemplate(dbFactory, converter);
-        return template;
+        return new MongoTemplate(dbFactory, converter);
     }
 
     @Bean
-    public MappingMongoConverter mappingMongoConverter(MongoDbFactory factory, MongoMappingContext context, BeanFactory beanFactory, CustomConversions conversions) {
+    public MappingMongoConverter mappingMongoConverter(MongoDbFactory factory, MongoMappingContext context, BeanFactory beanFactory) {
         DbRefResolver dbRefResolver = new DefaultDbRefResolver(factory);
         MappingMongoConverter mappingConverter = new MappingMongoConverter(dbRefResolver, context);
-        mappingConverter.setCustomConversions(beanFactory.getBean(CustomConversions.class));
-        mappingConverter.setTypeMapper(new DefaultMongoTypeMapper(null));//去掉默认mapper添加的_class
-        mappingConverter.setCustomConversions(conversions);//添加自定义的转换器
+        mappingConverter.setTypeMapper(new DefaultMongoTypeMapper(null));
+        mappingConverter.setCustomConversions(customConversions());
         return mappingConverter;
     }
 
     @Bean
     public CustomConversions customConversions() {
-        List list = new ArrayList();
-        list.add(new TimestampConverter());
-        return new CustomConversions(list);
+        List<Converter<?, ?>> converters = new ArrayList<>();
+        converters.add(new TimestampConverter());
+        return new MongoCustomConversions(converters);
     }
 
-}
-
-class TimestampConverter implements Converter<Date, Timestamp> {
-    @Override
-    public Timestamp convert(Date date) {
-        if (date != null) {
-            return new Timestamp(date.getTime());
+    class TimestampConverter implements Converter<Date, Timestamp> {
+        @Override
+        public Timestamp convert(Date date) {
+            if (date != null) {
+                return new Timestamp(date.getTime());
+            }
+            return null;
         }
-        return null;
     }
 }
