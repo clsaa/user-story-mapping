@@ -8,6 +8,8 @@ import com.clsaa.homework.usm.util.TimestampUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * @author joyren
  */
@@ -20,8 +22,8 @@ public class UserService {
         User user = User.builder()
                 .username(username)
                 .password(password)
-                .ctime(TimestampUtil.now())
-                .mtime(TimestampUtil.now())
+                .ctime(LocalDateTime.now())
+                .mtime(LocalDateTime.now())
                 .build();
         User existUser = this.userRepository.save(user);
         return BeanUtils.convertType(existUser, UserV1.class);

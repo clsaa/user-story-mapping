@@ -17,7 +17,6 @@ spring:
     show-sql: true
 spring.jackson.serialization.WRITE_DATES_AS_TIMESTAMPS: true  #返回JSON统一日期为时间戳
 spring.jackson.serialization.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS: false
-
 project:
   groupId: @project.groupId@
   artifactId: @project.artifactId@

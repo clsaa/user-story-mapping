@@ -24,6 +24,6 @@ public class UserV1 {
     private String email;
     private String nickname;
     private String avatarUrl;
-    private Timestamp ctime;
-    private Timestamp mtime;
+    private LocalDateTime ctime;
+    private LocalDateTime mtime;
 }

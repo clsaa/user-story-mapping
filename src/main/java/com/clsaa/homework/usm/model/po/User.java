@@ -1,11 +1,11 @@
 package com.clsaa.homework.usm.model.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -31,7 +31,7 @@ public class User {
     @Field("nickname")
     private String nickname;
     @Field("ctime")
-    private Timestamp ctime;
+    private LocalDateTime ctime;
     @Field("mtime")
-    private Timestamp mtime;
+    private LocalDateTime mtime;
 }
