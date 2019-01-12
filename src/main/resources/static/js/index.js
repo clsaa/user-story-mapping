@@ -3,6 +3,7 @@ window.onload = function () {
     load_ok_usm();
     count();
 };
+
 function count() {
     $.ajax({
         type: 'GET',
@@ -13,12 +14,16 @@ function count() {
         }
     });
 }
+
 function load_ok_usm() {
     $.ajax({
         type: 'GET',
         async: true,
         url: "http://localhost:7788/v1/usms?stauts=OK",
         success: function (data) {
+            if (data.toString().startsWith('<!DOCTYPE html>')) {
+                window.location.reload()
+            }
             $("#ok_usm_count").text(data.length);
             $("#ok_list_btn").addClass("active");
             $("#deleted_list_btn").removeClass("active");
@@ -50,15 +55,22 @@ function load_ok_usm() {
         },
         error: function (data) {
             console.log(data)
+        },
+        complete: function (data, textStatus) {
+            console.log(data.status);
         }
     });
 }
+
 function load_deleted_usm() {
     $.ajax({
         type: 'GET',
         async: true,
         url: "http://localhost:7788/v1/usms?stauts=DELETED",
         success: function (data) {
+            if (data.toString().startsWith('<!DOCTYPE html>')) {
+                window.location.reload();
+            }
             $("#delete_usm_count").text(data.length);
             $("#ok_list_btn").removeClass("active");
             $("#deleted_list_btn").addClass("active");
@@ -90,6 +102,9 @@ function load_deleted_usm() {
         },
         error: function (data) {
             console.log(data)
+        },
+        complete: function (data, textStatus) {
+            console.log(data.status);
         }
     });
 }
@@ -124,8 +139,8 @@ function new_usm() {
     $.ajax({
         type: 'POST',
         url: "http://localhost:7788/v1/usms?" +
-            "name="+$("#new_usm_name").val()+
-            "&description="+$("#new_usm_description").val(),
+            "name=" + $("#new_usm_name").val() +
+            "&description=" + $("#new_usm_description").val(),
         contentType: "application/json",
         success: function (data) {
             console.log(data);

@@ -36,8 +36,7 @@ public class LoginWebFilter implements WebFilter {
                 && !path.contains(IMG_PATH)
                 && !path.contains(SWAGGER)
                 && !path.contains(SWAGGER_API_DOCS)
-                && !path.contains(SWAGGER_WEB_JAR)
-                && !path.contains(HTML_FILE);
+                && !path.contains(SWAGGER_WEB_JAR);
     }
 
     @Override
