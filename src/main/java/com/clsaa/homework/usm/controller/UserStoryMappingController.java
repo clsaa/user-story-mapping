@@ -1,8 +1,6 @@
 package com.clsaa.homework.usm.controller;
 
 import com.clsaa.homework.usm.enums.UserStoryMappingStatusEnum;
-import com.clsaa.homework.usm.model.dto.UserStoryMappingDtoV1;
-import com.clsaa.homework.usm.model.po.UserStoryMapping;
 import com.clsaa.homework.usm.model.vo.UserStoryMappingV1;
 import com.clsaa.homework.usm.service.UserStoryMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +31,7 @@ public class UserStoryMappingController {
                                                        @RequestParam("name") String name,
                                                        @RequestParam("description") String description,
                                                        @RequestParam("data") String data,
-                                                       @RequestParam("stauts") UserStoryMappingStatusEnum status,
+                                                       @RequestParam("status") UserStoryMappingStatusEnum status,
                                                        @ApiIgnore @RequestHeader("X-LOGIN-USER-ID") String loginUserId) {
         return this.userStoryMappingService.updateUserStoryMapping(id, name, description, data, status, loginUserId);
     }

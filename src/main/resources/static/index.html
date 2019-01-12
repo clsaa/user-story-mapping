@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>User Story Mapping</title>
-    <script src="js/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!-- 新 Bootstrap 核心 CSS 文件 -->
-    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -14,7 +14,8 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -25,14 +26,21 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form  class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left">
                 <ul class="nav nav-pills" role="tablist">
                 </ul>
             </form>
-            <form  class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left">
                 <ul class="nav nav-pills" role="tablist">
-                    <li role="presentation" class="active"><a href="#">All User Story Mapping <span class="badge">42</span></a></li>
-                    <li role="presentation"><a href="#">Waste paper basket <span class="badge">3</span></a></li>
+                    <li id="ok_list_btn" role="presentation" class="active" onclick="load_ok_usm()">
+                        <a href="#">All User Story Mapping
+                            <span class="badge" id="ok_usm_count">0</span>
+                        </a></li>
+                    <li id="deleted_list_btn" role="presentation" onclick="load_deleted_usm()">
+                        <a href="#">Waste paper basket
+                            <span class="badge" id="delete_usm_count">0</span>
+                        </a>
+                    </li>
                 </ul>
             </form>
             <form class="navbar-form navbar-left">
@@ -42,11 +50,75 @@
                 </div>
             </form>
             <form class="navbar-form navbar-right">
-                <button type="submit" class="btn btn-default right">New +</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUsmModal">New +</button>
             </form>
         </div>
     </div>
 </nav>
+<div class="row hidden" id="ok_usm_list">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>name</th>
+                    <th>description</th>
+                    <th>update time</th>
+                    <th>operation</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row hidden" id="deleted_usm_list">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>name</th>
+                    <th>description</th>
+                    <th>update time</th>
+                    <th>operation</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="newUsmModal" tabindex="-1" role="dialog" aria-labelledby="newUsmModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="newUsmModalLabel">New User Story Mapping</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Name:</label>
+                        <input id="new_usm_name" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">Description:</label>
+                        <textarea id="new_usm_description" class="form-control"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="new_usm()">Finish</button>
+            </div>
+        </div>
+    </div>
+</div>
 <h1>index</h1>
 </body>
 </html>

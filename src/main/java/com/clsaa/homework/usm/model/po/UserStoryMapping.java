@@ -22,7 +22,7 @@ public class UserStoryMapping {
     @Id
     @Field("id")
     private String id;
-    @Field("username")
+    @Field("name")
     private String name;
     @Field("description")
     private String description;
