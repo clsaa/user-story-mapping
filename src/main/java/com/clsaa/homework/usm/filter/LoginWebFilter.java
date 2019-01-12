@@ -49,9 +49,8 @@ public class LoginWebFilter implements WebFilter {
         System.out.println(path + "---");
         if (shouldFilter(path)) {
             return serverWebExchange.getSession().map(session -> {
-                String token = request.getHeaders().getFirst("X-LOGIN-USER-TOKEN");
-                System.out.println("X-LOGIN-USER-TOKEN : " + token);
-                if (StringUtils.isEmpty(token) || StringUtils.isEmpty(session.getAttributes().get(token))) {
+                String userId = (String) session.getAttributes().get("X-LOGIN-USER-ID");
+                if (StringUtils.isEmpty(userId)) {
                     //登录页面路径
                     String loginForwardUrl = request.getURI().getScheme() +
                             "://" +
@@ -59,19 +58,16 @@ public class LoginWebFilter implements WebFilter {
                             LOGIN_FORWARD_PATH;
                     URI loginForwardUri = UriComponentsBuilder.fromHttpUrl(loginForwardUrl).build().toUri();
                     //创建返回值
-                    ServerWebExchange loginExchange = serverWebExchange.mutate().request(build ->
+                    return serverWebExchange.mutate().request(build ->
                             build.uri(loginForwardUri)).build();
-                    return loginExchange;
                 } else {
-                    String userId = (String) session.getAttributes().get(token);
                     ServerHttpRequest loginPassRequest = serverWebExchange.getRequest()
                             .mutate()
                             .header("X-LOGIN-USER-ID", userId)
                             .build();
-                    ServerWebExchange loginPassExchange = serverWebExchange.mutate()
+                    return serverWebExchange.mutate()
                             .request(loginPassRequest)
                             .build();
-                    return loginPassExchange;
                 }
             }).flatMap(webFilterChain::filter).then();
         }

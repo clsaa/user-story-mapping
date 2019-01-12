@@ -72,16 +72,16 @@ $(function () {
             type: 'POST',
             url: "http://localhost:7788/v1/login",
             contentType: "application/json",
-            dataType:"application/json",
             data: JSON.stringify({
                 "email": $("#email").val(),
                 "password": $("#password").val()
             }),
-            success: function (e) {
-                console.log(e);
+            success: function (data) {
+                console.log(JSON.stringify(data));
+                $(window).attr('location','index.html');
             },
-            error: function (e) {
-                console.log(e)
+            error: function (data) {
+                alert(data.responseJSON.message)
             }
         });
     });

@@ -22,9 +22,4 @@ public class UserController {
                 userDtoV1.getEmail(),
                 userDtoV1.getNickname());
     }
-
-    @GetMapping("/v1/users/{id}")
-    public UserV1 findUserByIdV1(@PathVariable("id") String id) {
-        return this.userService.findUserById(id);
-    }
 }

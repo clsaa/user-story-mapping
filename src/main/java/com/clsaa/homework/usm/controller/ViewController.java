@@ -14,11 +14,9 @@ import java.net.URI;
 @Controller
 public class ViewController {
     private static final HandlerFunction<ServerResponse> INDEX_REDIRECT_FUNCTION = s ->
-            ServerResponse.temporaryRedirect(URI.create("/login.html")).build();
+            ServerResponse.temporaryRedirect(URI.create("/index.html")).build();
     private static final HandlerFunction<ServerResponse> LOGIN_REDIRECT_FUNCTION = s ->
             ServerResponse.temporaryRedirect(URI.create("/login.html")).build();
-
-
     @Bean
     RouterFunction<ServerResponse> routerFunction() {
         return RouterFunctions
@@ -26,6 +24,4 @@ public class ViewController {
                 .andRoute(RequestPredicates.GET("/index"), INDEX_REDIRECT_FUNCTION)
                 .andRoute(RequestPredicates.GET("/login"), LOGIN_REDIRECT_FUNCTION);
     }
-
-
 }

@@ -38,4 +38,8 @@ public interface BizCodes {
      * 邮箱已存在
      */
     BizCode DUPLICATED_EMAIL = new BizCode(1015, "邮箱已存在");
+    /**
+     * 用户无权操作此用户故事地图
+     */
+    BizCode INVALID_USER = new BizCode(1016, "用户无权操作此用户故事地图");
 }
