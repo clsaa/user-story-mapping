@@ -28,6 +28,7 @@ public class LoginWebFilter implements WebFilter {
     private static final String SWAGGER_API_DOCS = "/v2/api-docs";
     private static final String SWAGGER_WEB_JAR = "webjars";
     private static final String LOGIN_FORWARD_PATH = "/login";
+    private static final String REGISTER_PATH = "/register";
 
     private boolean shouldFilter(String path) {
         return !path.contains(LOGIN_PATH)
@@ -36,6 +37,7 @@ public class LoginWebFilter implements WebFilter {
                 && !path.contains(IMG_PATH)
                 && !path.contains(SWAGGER)
                 && !path.contains(SWAGGER_API_DOCS)
+                && !path.contains(REGISTER_PATH)
                 && !path.contains(SWAGGER_WEB_JAR);
     }
 

@@ -36,7 +36,7 @@ function load_ok_usm() {
                     '<tr>' +
                     '<td>' + (i) + '</td>' +
                     '<td class="hidden">' + item.id + '</td>' +
-                    '<td>' + item.name + '</td>' +
+                    '<td>' + '<a href='+'"/usm.html?id='+item.id+'"'+'>'+item.name+'</a>' + '</td>' +
                     '<td>' + item.description + '</td>' +
                     '<td class="hidden">' + item.data + '</td>' +
                     '<td>' + item.mtime + '</td>' +
@@ -120,11 +120,14 @@ function update_usm(value) {
     }
     $.ajax({
         type: 'PUT',
-        url: "http://localhost:7788/v1/usms/" + id + "?" +
-            "name=" + name + "&" +
-            "description=" + description + "&" +
-            "data=" + data + "&" +
-            "status=" + status,
+        url: "http://localhost:7788/v1/usms/" + id,
+        contentType: "application/json",
+        data: JSON.stringify({
+            "name": name,
+            "description": description,
+            "data": data,
+            "status": status
+        }),
         success: function (data) {
             console.log(JSON.stringify(data));
             load_ok_usm();

@@ -1,6 +1,7 @@
 package com.clsaa.homework.usm.controller;
 
 import com.clsaa.homework.usm.enums.UserStoryMappingStatusEnum;
+import com.clsaa.homework.usm.model.dto.UserStoryMappingDtoV1;
 import com.clsaa.homework.usm.model.vo.UserStoryMappingV1;
 import com.clsaa.homework.usm.service.UserStoryMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,25 @@ public class UserStoryMappingController {
 
     @PutMapping("/v1/usms/{id}")
     public UserStoryMappingV1 updateUserStoryMappingV1(@PathVariable("id") String id,
-                                                       @RequestParam("name") String name,
-                                                       @RequestParam("description") String description,
-                                                       @RequestParam("data") String data,
-                                                       @RequestParam("status") UserStoryMappingStatusEnum status,
+                                                       @RequestBody UserStoryMappingDtoV1 userStoryMappingDtoV1,
                                                        @ApiIgnore @RequestHeader("X-LOGIN-USER-ID") String loginUserId) {
-        return this.userStoryMappingService.updateUserStoryMapping(id, name, description, data, status, loginUserId);
+        return this.userStoryMappingService.updateUserStoryMapping(id,
+                userStoryMappingDtoV1.getName(),
+                userStoryMappingDtoV1.getDescription(),
+                userStoryMappingDtoV1.getData(),
+                userStoryMappingDtoV1.getStatus(),
+                loginUserId);
     }
+
     @GetMapping("/v1/usms")
     public List<UserStoryMappingV1> findUserStoryMappingsByCuserAndStatusV1(@RequestParam("stauts") UserStoryMappingStatusEnum status,
                                                                             @ApiIgnore @RequestHeader("X-LOGIN-USER-ID") String loginUserId) {
-        return this.userStoryMappingService.findUserStoryMappingsByCuserAndStatusV1(status, loginUserId);
+        return this.userStoryMappingService.findUserStoryMappingsByCuserAndStatus(status, loginUserId);
+    }
+
+    @GetMapping("/v1/usms/{id}")
+    public UserStoryMappingV1 findUserStoryMappingByIdV1(@PathVariable("id") String id,
+                                                         @ApiIgnore @RequestHeader("X-LOGIN-USER-ID") String loginUserId) {
+        return this.userStoryMappingService.findUserStoryMappingById(id, loginUserId);
     }
 }

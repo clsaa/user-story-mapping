@@ -38,7 +38,7 @@ public class UserStoryMappingService {
 
     public UserStoryMappingV1 updateUserStoryMapping(String id, String name, String description, String data,
                                                      UserStoryMappingStatusEnum status, String loginUserId) {
-        UserStoryMapping existUsm = this.findByUserStoryMapping(id, loginUserId);
+        UserStoryMapping existUsm = this.findById(id, loginUserId);
         existUsm.setName(name);
         existUsm.setDescription(description);
         existUsm.setData(data);
@@ -48,15 +48,19 @@ public class UserStoryMappingService {
         return BeanUtils.convertType(existUsm, UserStoryMappingV1.class);
     }
 
-    private UserStoryMapping findByUserStoryMapping(String id, String loginUserId) {
+    private UserStoryMapping findById(String id, String loginUserId) {
         UserStoryMapping existUsm = this.userStoryMappingRepository.findById(id).orElse(null);
         BizAssert.found(existUsm != null, BizCodes.NOT_FOUND);
         BizAssert.found(existUsm.getCuser().equals(loginUserId), BizCodes.INVALID_USER);
         return existUsm;
     }
 
-    public List<UserStoryMappingV1> findUserStoryMappingsByCuserAndStatusV1(UserStoryMappingStatusEnum status, String loginUserId) {
+    public List<UserStoryMappingV1> findUserStoryMappingsByCuserAndStatus(UserStoryMappingStatusEnum status, String loginUserId) {
         return this.userStoryMappingRepository.findUserStoryMappingsByCuserAndStatus(loginUserId, status)
                 .stream().map(s -> BeanUtils.convertType(s, UserStoryMappingV1.class)).collect(Collectors.toList());
+    }
+
+    public UserStoryMappingV1 findUserStoryMappingById(String id, String loginUserId) {
+        return BeanUtils.convertType(findById(id, loginUserId), UserStoryMappingV1.class);
     }
 }
