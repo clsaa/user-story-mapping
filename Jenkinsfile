@@ -28,7 +28,7 @@ pipeline{
                     //这里这个tool是直接根据名称，获取自动安装的插件的路径
                 }
                 withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner sonar.projectKey=user-story-mapping-web sonar.projectName=user-story-mapping-web sonar.sources=src sonar.projectVersion=${build_tag} sonar.language=java  sonar.sourceEncoding=UTF-8"
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=user-story-mapping-web -Dsonar.projectName=user-story-mapping-web -Dsonar.sources=src -Dsonar.projectVersion=${build_tag} -Dsonar.language=java  -Dsonar.sourceEncoding=UTF-8"
                 }
 			}
 		}
