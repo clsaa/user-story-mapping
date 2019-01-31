@@ -8,7 +8,7 @@ function count() {
     $.ajax({
         type: 'GET',
         async: true,
-        url: "http://localhost:7788/v1/usms?stauts=DELETED",
+        url: "/v1/usms?stauts=DELETED",
         success: function (data) {
             $("#delete_usm_count").text(data.length);
         }
@@ -19,7 +19,7 @@ function load_ok_usm() {
     $.ajax({
         type: 'GET',
         async: true,
-        url: "http://localhost:7788/v1/usms?stauts=OK",
+        url: "/v1/usms?stauts=OK",
         success: function (data) {
             if (data.toString().startsWith('<!DOCTYPE html>')) {
                 window.location.reload()
@@ -66,7 +66,7 @@ function load_deleted_usm() {
     $.ajax({
         type: 'GET',
         async: true,
-        url: "http://localhost:7788/v1/usms?stauts=DELETED",
+        url: "/v1/usms?stauts=DELETED",
         success: function (data) {
             if (data.toString().startsWith('<!DOCTYPE html>')) {
                 window.location.reload();
