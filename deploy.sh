@@ -1,6 +1,5 @@
 #!/bin/bash -l
 
-ls -l
 IMAGE=`cat IMAGE_NAME`
 MODULE=$1
 PATH=$PATH:/root/bin
