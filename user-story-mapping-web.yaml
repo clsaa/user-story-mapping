@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: user-story-mapping-web
-          image: registry.cn-beijing.aliyuncs.com/clsaa/user-story-mapping-web
+          image: registry.cn-beijing.aliyuncs.com/usm/user-story-mapping-web
           imagePullPolicy: Always
           ports:
             - containerPort: 7788
