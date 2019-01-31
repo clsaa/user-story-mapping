@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 IMAGE=`cat IMAGE_NAME`
 MODULE=$1

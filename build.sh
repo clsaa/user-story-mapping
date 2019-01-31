@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 MODULE=$1
 TIME=`date "+%Y%m%d%H%M"`
