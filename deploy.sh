@@ -1,8 +1,7 @@
 #!/bin/bash
 
 IMAGE=`cat IMAGE_NAME`
-DEPLOYMENT=$1
-MODULE=$2
+MODULE=$1
 PATH=$PATH:/root/bin
 export PATH
 echo "update image to:${IMAGE}"
