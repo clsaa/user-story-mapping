@@ -13,3 +13,5 @@ docker push ${IMAGE_NAME}
 echo "${IMAGE_NAME}" > IMAGE_NAME
 
 ls -l
+
+cat IMAGE_NAME
