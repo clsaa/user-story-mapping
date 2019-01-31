@@ -20,25 +20,25 @@ pipeline{
 			}
 		}
 
-		stage('代码静态检查') {
-			steps {
-				echo "start code check"
-                script {
-                    scannerHome = tool 'SonarQubeScanner2.8'
-                    //这里这个tool是直接根据名称，获取自动安装的插件的路径
-                }
-                withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=user-story-mapping-web -Dsonar.projectName=user-story-mapping-web -Dsonar.sources=src -Dsonar.projectVersion=${build_tag} -Dsonar.language=java  -Dsonar.sourceEncoding=UTF-8"
-                }
-			}
-		}
-
 		stage('编译+单元测试') {
 			steps {
 				echo "star compile"
 				sh "mvn -U -am clean package"
 			}
 		}
+
+        stage('代码静态检查') {
+            steps {
+                echo "start code check"
+                script {
+                    scannerHome = tool 'SonarQubeScanner2.8'
+                    //这里这个tool是直接根据名称，获取自动安装的插件的路径
+                }
+                withSonarQubeEnv('SonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=user-story-mapping-web -Dsonar.projectName=user-story-mapping-web -Dsonar.sources=src -Dsonar.projectVersion=${build_tag} -Dsonar.language=java  -Dsonar.sourceEncoding=UTF-8 -Dsonar.java.binaries=target/classes"
+                }
+            }
+        }
 
 		stage('构建镜像') {
 			steps {
