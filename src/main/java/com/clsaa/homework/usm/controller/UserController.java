@@ -15,5 +15,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
+    @PostMapping("/v1/register")
+    public UserV1 addUserV1(@RequestBody UserDtoV1 userDtoV1) {
+        return this.userService.addUser(userDtoV1.getUsername(),
+                userDtoV1.getPassword(),
+                userDtoV1.getEmail(),
+                userDtoV1.getNickname());
+    }
 }
