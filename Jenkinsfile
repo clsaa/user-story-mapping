@@ -18,6 +18,13 @@ pipeline{
 		stage('代码静态检查') {
 			steps {
 				echo "start code check"
+                script {
+                    scannerHome = tool 'SonarQubeScanner2.8'
+                    //这里这个tool是直接根据名称，获取自动安装的插件的路径
+                }
+                withSonarQubeEnv('SonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner sonar.projectKey=YourProjectKey sonar.sources=."
+                }
 			}
 		}
 
