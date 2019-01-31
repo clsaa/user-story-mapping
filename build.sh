@@ -11,3 +11,5 @@ cd ..
 docker push ${IMAGE_NAME}
 
 echo "${IMAGE_NAME}" > IMAGE_NAME
+
+ll -l
