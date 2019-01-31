@@ -36,6 +36,7 @@ pipeline{
                     git_version = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h"').trim()
                     build_tag = time+git_version
                 }
+                echo "image tag : ${build_tag}"
 				sh "docker build -t registry.cn-beijing.aliyuncs.com/usm/user-story-mapping-web:${build_tag} ."
 			}
 		}
@@ -54,6 +55,7 @@ pipeline{
             steps{
                 echo "start change yaml image tag"
                 sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
+                sh "cat k8s.yaml"
             }
         }
 
