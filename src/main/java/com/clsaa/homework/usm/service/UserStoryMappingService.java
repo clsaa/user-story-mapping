@@ -50,5 +50,19 @@ public class UserStoryMappingService {
         return BeanUtils.convertType(existUsm, UserStoryMappingV1.class);
     }
 
+    private UserStoryMapping findById(String id, String loginUserId) {
+        UserStoryMapping existUsm = this.userStoryMappingRepository.findById(id).orElse(null);
+        BizAssert.found(existUsm != null, BizCodes.NOT_FOUND);
+        BizAssert.found(existUsm.getCuser().equals(loginUserId), BizCodes.INVALID_USER);
+        return existUsm;
+    }
 
+    public List<UserStoryMappingV1> findUserStoryMappingsByCuserAndStatus(UserStoryMappingStatusEnum status, String loginUserId) {
+        return this.userStoryMappingRepository.findUserStoryMappingsByCuserAndStatus(loginUserId, status)
+                .stream().map(s -> BeanUtils.convertType(s, UserStoryMappingV1.class)).collect(Collectors.toList());
+    }
+
+    public UserStoryMappingV1 findUserStoryMappingById(String id, String loginUserId) {
+        return BeanUtils.convertType(findById(id, loginUserId), UserStoryMappingV1.class);
+    }
 }
