@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Finish Your User Story Mapping</title>
+    <link rel="stylesheet" href="css/usm.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="./js/fabric.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: #E5E4E5;;overflow-x: hidden;">
+
+<div style="margin-top:10px;">
+    <div style="width:50px;float:left;">
+        <ul id="toolsul" class="tools">
+            <li id="move" data-type="move" class="active" data-toggle="tooltip" data-placement="right"
+                title="select or move tool:you can select the element in user story mapping section and move them">
+                <i class="icon-tools icon-move-select" data-default='icon-tools icon-move-black'></i>
+            </li>
+            <li id="line" data-type="line" data-toggle="tooltip" data-placement="right"
+                title="create line tool：you can click on the user story mapping section to create a line">
+                <i class="icon-tools icon-line-black" data-default='icon-tools icon-line-black'></i>
+            </li>
+            <li id="text" data-type="text" data-toggle="tooltip" data-placement="right"
+                title="create card tool：you can click on the user story mapping section to create a card">
+                <i class="icon-tools icon-text-black" data-default='icon-tools icon-text-black'></i>
+            </li>
+            <li id="remove" data-type="remove" data-toggle="tooltip" data-placement="right"
+                title="remove tool：you can select the element in user story mapping section and remove them">
+                <i class="icon-tools icon-remove-black" data-default='icon-tools icon-remove-black'></i>
+            </li>
+            <li id="save" data-type="save" data-toggle="tooltip" data-placement="right"
+                title="save：you can save the user story mapping section">
+                <i class="icon-tools icon-right-small-black" data-default='icon-tools icon-right-small-black'></i>
+            </li>
+        </ul>
+    </div>
+    <div id="canvasDiv" class="canvasDiv" style="width:95%;">
+        <canvas id="c" width="1920" height="1080">请使用支持HTML5的浏览器</canvas>
+        <div id="contextmenu-output"></div>
+    </div>
+</div>
+<script src="js/usm.js"></script>
+
+</body>
+</html>
