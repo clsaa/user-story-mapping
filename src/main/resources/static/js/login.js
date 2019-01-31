@@ -70,7 +70,7 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: "http://localhost:7788/v1/login",
+            url: "/v1/login",
             contentType: "application/json",
             data: JSON.stringify({
                 "email": $("#email").val(),

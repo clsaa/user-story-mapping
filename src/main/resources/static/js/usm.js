@@ -123,7 +123,7 @@ function save(canvas) {
     respo_data.data = req_data;
     $.ajax({
         type: 'PUT',
-        url: "http://localhost:7788/v1/usms/" + respo_data.id,
+        url: "/v1/usms/" + respo_data.id,
         contentType: "application/json",
         data: JSON.stringify({
             "name": respo_data.name,
@@ -145,7 +145,7 @@ function load(canvas) {
     $.ajax({
         type: 'GET',
         async: true,
-        url: "http://localhost:7788/v1/usms/" + id,
+        url: "/v1/usms/" + id,
         success: function (data) {
             if (data.toString().startsWith('<!DOCTYPE html>')) {
                 window.location.reload()

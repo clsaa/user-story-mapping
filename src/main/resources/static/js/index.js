@@ -120,7 +120,7 @@ function update_usm(value) {
     }
     $.ajax({
         type: 'PUT',
-        url: "http://localhost:7788/v1/usms/" + id,
+        url: "/v1/usms/" + id,
         contentType: "application/json",
         data: JSON.stringify({
             "name": name,
@@ -141,7 +141,7 @@ function update_usm(value) {
 function new_usm() {
     $.ajax({
         type: 'POST',
-        url: "http://localhost:7788/v1/usms?" +
+        url: "/v1/usms?" +
             "name=" + $("#new_usm_name").val() +
             "&description=" + $("#new_usm_description").val(),
         contentType: "application/json",
