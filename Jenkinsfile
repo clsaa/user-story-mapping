@@ -12,6 +12,11 @@ pipeline{
 				echo "start fetch code from git:${REPOSITORY}"
 				deleteDir()
 				git "${REPOSITORY}"
+                script {
+                    time = sh(returnStdout: true, script: 'date "+%Y%m%d%H%M"').trim()
+                    git_version = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h"').trim()
+                    build_tag = time+git_version
+                }
 			}
 		}
 
@@ -23,7 +28,7 @@ pipeline{
                     //这里这个tool是直接根据名称，获取自动安装的插件的路径
                 }
                 withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner sonar.projectKey=5ae3033488ff69d234bb20638a88735984e2873d sonar.sources=."
+                    sh "${scannerHome}/bin/sonar-scanner sonar.projectKey=user-story-mapping-web sonar.projectName=user-story-mapping-web sonar.sources=src sonar.projectVersion=${build_tag} sonar.language=java  sonar.sourceEncoding=UTF-8"
                 }
 			}
 		}
@@ -38,11 +43,7 @@ pipeline{
 		stage('构建镜像') {
 			steps {
 				echo "start build image"
-                script {
-                    time = sh(returnStdout: true, script: 'date "+%Y%m%d%H%M"').trim()
-                    git_version = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h"').trim()
-                    build_tag = time+git_version
-                }
+
                 echo "image tag : ${build_tag}"
 				sh "docker build -t registry.cn-beijing.aliyuncs.com/usm/user-story-mapping-web:${build_tag} ."
 			}
