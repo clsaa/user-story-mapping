@@ -23,7 +23,7 @@ pipeline{
                     //这里这个tool是直接根据名称，获取自动安装的插件的路径
                 }
                 withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner sonar.projectKey=YourProjectKey sonar.sources=."
+                    sh "${scannerHome}/bin/sonar-scanner sonar.projectKey=5ae3033488ff69d234bb20638a88735984e2873d sonar.sources=."
                 }
 			}
 		}
