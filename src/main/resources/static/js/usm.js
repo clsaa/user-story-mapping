@@ -122,12 +122,11 @@ var saved_time = "";
 function save(canvas) {
     let p = jQuery("#auto-save-p");
     p.text("saving");
+    respo_data.data = JSON.stringify(canvas.toJSON());
     if (respo_data == null) {
-        console.log("no load data");
         p.text("no data");
         return;
     }
-    respo_data.data = JSON.stringify(canvas.toJSON());
     $.ajax({
         type: 'PUT',
         url: "/v1/usms/" + respo_data.id,
@@ -166,7 +165,7 @@ function load(canvas) {
         error: function (data) {
             console.log(data)
         },
-        complete: function (data, textStatus) {
+        complete: function (data) {
             console.log(data.status);
         }
     })
