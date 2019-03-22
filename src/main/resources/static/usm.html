@@ -35,9 +35,16 @@
                 title="save：you can save the user story mapping section">
                 <i class="icon-tools icon-right-small-black" data-default='icon-tools icon-right-small-black'></i>
             </li>
-            <li id= data-toggle="tooltip" data-placement="right">
+            <li data-placement="right">
+                <a id="download-png">Get PNG</a>
+            </li>
+            <li data-placement="right">
+                <a id="download-pdf">Get PDF</a>
+            </li>
+            <li data-placement="right">
                 <p id="auto-save-p">auto save</p>
             </li>
+
         </ul>
     </div>
     <div id="canvasDiv" class="canvasDiv" style="width:95%;">
@@ -45,6 +52,9 @@
         <div id="contextmenu-output"></div>
     </div>
 </div>
+<script src="js/canvas2image.js"></script>
+<script src="js/dom-to-image.js"></script>
+<script src="js/jsPDF.js"></script>
 <script src="js/usm.js"></script>
 
 </body>

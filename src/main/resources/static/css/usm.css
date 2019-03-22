@@ -337,3 +337,17 @@
     line-height: 80%;
     font-size: 50%;
 }
+
+#download-png {
+    display: inline-block;
+    margin-top: 20%;
+    line-height: 100%;
+    font-size: 60%;
+}
+
+#download-pdf {
+    display: inline-block;
+    margin-top: 20%;
+    line-height: 100%;
+    font-size: 60%;
+}

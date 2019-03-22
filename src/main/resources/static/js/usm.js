@@ -1,5 +1,3 @@
-//变量声明
-//菜单项
 var mouseFrom = {},
     mouseTo = {},
     drawType = null,
@@ -20,6 +18,14 @@ window.onload = function () {
     //初始化画板
     var canvas = new fabric.Canvas("c");
     load(canvas);
+
+    jQuery("#download-png").click(function () {
+        download_png();
+    });
+    jQuery("#download-pdf").click(function () {
+        download_pdf(canvas);
+    });
+
     canvas.on('mouse:up', function (options) {
         console.log(options.e.clientX, options.e.clientY);
         switch (drawType) {
@@ -50,7 +56,7 @@ window.onload = function () {
         save(canvas);
     });
     setInterval(function () {
-        save(canvas);
+        // save(canvas);
     }, 5000);
 };
 
@@ -180,4 +186,34 @@ function getQueryString(name) {
 
 function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+function download_png() {
+
+    domtoimage.toPng(document.getElementById('c'), {quality: 1})
+        .then(function (dataUrl) {
+            var link = document.createElement('a');
+            link.download = 'download-UserStoryMapping.png';
+            link.href = dataUrl;
+            link.click();
+        });
+}
+
+function download_pdf(canvas) {
+    var contentWidth = canvas.width;
+    var contentHeight = canvas.height;
+    //一页pdf显示html页面生成的canvas高度;
+    var pageHeight = contentWidth / 592.28 * 841.89;
+    //未生成pdf的html页面高度
+    var leftHeight = contentHeight;
+    //页面偏移
+    var position = 0;
+    //a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高
+    var imgWidth = 595.28;
+    var imgHeight = 592.28/contentWidth * contentHeight;
+
+    var imgData = canvas.toDataURL('image/jpeg', 1.0);
+    var doc = new jsPDF('', 'pt', 'a4');
+    doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    doc.save("download-UserStoryMapping.pdf");
 }
