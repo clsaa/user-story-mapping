@@ -14,7 +14,7 @@ var respo_data = null;
 window.onload = function () {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-    })
+    });
     //绑定工具栏事件
     toolsBandingEvent();
     //初始化画板
@@ -48,7 +48,10 @@ window.onload = function () {
     });
     $("#save").click(function () {
         save(canvas);
-    })
+    });
+    setInterval(function () {
+        save(canvas);
+    }, 5000);
 };
 
 
@@ -114,13 +117,17 @@ function new_line(options) {
     return line;
 }
 
+var saved_time = "";
+
 function save(canvas) {
+    let p = jQuery("#auto-save-p");
+    p.text("saving");
     if (respo_data == null) {
         console.log("no load data");
+        p.text("no data");
         return;
     }
-    var req_data = JSON.stringify(canvas.toJSON());
-    respo_data.data = req_data;
+    respo_data.data = JSON.stringify(canvas.toJSON());
     $.ajax({
         type: 'PUT',
         url: "/v1/usms/" + respo_data.id,
@@ -131,11 +138,12 @@ function save(canvas) {
             "data": respo_data.data,
             "status": respo_data.status
         }),
-        success: function (data) {
-            console.log(JSON.stringify(data));
+        success: function () {
+            saved_time = new Date().getHours() + " : " + new Date().getSeconds();
+            p.html("saved at</br>" + saved_time);
         },
-        error: function (data) {
-            alert(data.responseJSON.message)
+        error: function () {
+            p.html("saved at</br>" + saved_time);
         }
     });
 }
@@ -169,4 +177,8 @@ function getQueryString(name) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]);
     return null;
+}
+
+function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
 }
