@@ -6,6 +6,7 @@ import com.clsaa.homework.usm.model.po.User;
 import com.clsaa.homework.usm.model.vo.UserV1;
 import com.clsaa.homework.usm.util.BeanUtils;
 import com.clsaa.rest.result.bizassert.BizAssert;
+import com.clsaa.rest.result.bizassert.BizCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class UserService {
                 .mtime(LocalDateTime.now())
                 .build();
         User existUser = this.userRepository.save(user);
+        existUser.setPassword("");
         return BeanUtils.convertType(existUser, UserV1.class);
     }
 
@@ -41,6 +43,19 @@ public class UserService {
 
     public UserV1 findUserByEmail(String email) {
         User existUser = this.userRepository.findUserByEmail(email);
+        return BeanUtils.convertType(existUser, UserV1.class);
+    }
+
+    public UserV1 updatePassword(String email, String oldPassword, String password) {
+        User existUser = this.userRepository.findUserByEmail(email);
+        if (existUser.getPassword().equals(oldPassword)) {
+            existUser.setMtime(LocalDateTime.now());
+            existUser.setPassword(password);
+            this.userRepository.save(existUser);
+        } else {
+            BizAssert.justDenied(new BizCode(10001, "邮箱、密码错误"));
+        }
+        existUser.setPassword("");
         return BeanUtils.convertType(existUser, UserV1.class);
     }
 }

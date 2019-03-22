@@ -1,5 +1,6 @@
 package com.clsaa.homework.usm.controller;
 
+import com.clsaa.homework.usm.model.dto.ModifyPasswordDtoV1;
 import com.clsaa.homework.usm.model.dto.UserDtoV1;
 import com.clsaa.homework.usm.model.vo.UserV1;
 import com.clsaa.homework.usm.service.UserService;
@@ -21,5 +22,12 @@ public class UserController {
                 userDtoV1.getPassword(),
                 userDtoV1.getEmail(),
                 userDtoV1.getNickname());
+    }
+
+    @PutMapping("/v1/register")
+    public UserV1 updatePassword(@RequestBody ModifyPasswordDtoV1 modifyPasswordDtoV1) {
+        return this.userService.updatePassword(modifyPasswordDtoV1.getEmail(),
+                modifyPasswordDtoV1.getOldPassword(),
+                modifyPasswordDtoV1.getPassword());
     }
 }
