@@ -154,3 +154,17 @@ function new_usm() {
         }
     });
 }
+
+function logout() {
+    $.ajax({
+        type: 'POST',
+        url: "/v1/logout",
+        contentType: "application/json",
+        success: function (data) {
+            $(window).attr('location', '/');
+        },
+        error: function (data) {
+            alert(data.responseJSON.message)
+        }
+    });
+}

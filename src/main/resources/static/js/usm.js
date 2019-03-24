@@ -56,7 +56,7 @@ window.onload = function () {
         save(canvas);
     });
     setInterval(function () {
-        // save(canvas);
+        save(canvas);
     }, 5000);
 };
 
@@ -210,7 +210,7 @@ function download_pdf(canvas) {
     var position = 0;
     //a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高
     var imgWidth = 595.28;
-    var imgHeight = 592.28/contentWidth * contentHeight;
+    var imgHeight = 592.28 / contentWidth * contentHeight;
 
     var imgData = canvas.toDataURL('image/jpeg', 1.0);
     var doc = new jsPDF('', 'pt', 'a4');

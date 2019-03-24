@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.MonoSink;
 
 
 /**
@@ -21,6 +23,7 @@ import reactor.core.publisher.Mono;
 public class LoginController {
     @Autowired
     private UserService userService;
+
     @PostMapping("/v1/login")
     public Mono<UserV1> login(@RequestBody UserDtoV1 userDtoV1, ServerWebExchange exchange) {
         UserV1 user = this.userService.findUserByEmail(userDtoV1.getEmail());
@@ -33,6 +36,14 @@ public class LoginController {
                 session.getAttributes().put("X-LOGIN-USER-ID", user.getId());
             }
             return Mono.just(userV1);
+        });
+    }
+
+    @PostMapping("/v1/logout")
+    public Mono<Void> logout(ServerWebExchange exchange) {
+        return exchange.getSession().flatMap(session -> {
+            session.getAttributes().remove("X-LOGIN-USER-ID");
+            return Mono.create(MonoSink::success);
         });
     }
 }

@@ -50,6 +50,17 @@
                 </div>
             </form>
             <form class="navbar-form navbar-right">
+                <!-- Single button -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Me <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li onclick="logout()"><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </form>
+            <form class="navbar-form navbar-right">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUsmModal">New +</button>
             </form>
         </div>
