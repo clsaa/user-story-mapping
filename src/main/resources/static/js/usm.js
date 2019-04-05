@@ -84,15 +84,15 @@ function toolsBandingEvent() {
 }
 
 function new_note(options) {
-    var note = new fabric.Textbox('please~ input...', {
+    var note = new fabric.Textbox('please~ input your task', {
         left: options.e.clientX - 100,
         top: options.e.clientY - 50,
         fontFamily: 'Comic Sans MS',
-        fontSize: '24',
+        fontSize: '26',
         fontWeight: "normal",
         fontStyle: "",
-        backgroundColor: 'rgba(153,77,82,0.3)',
-        borderColor: 'rgba(153,77,82,0.6)',
+        backgroundColor: 'rgba(153,77,82,0.25)',
+        borderColor: 'rgba(153,77,82,0.8)',
         hasControls: false, //选中时是否可以放大缩小
         hasRotatingPoint: false//选中时是否可以旋转
     });
