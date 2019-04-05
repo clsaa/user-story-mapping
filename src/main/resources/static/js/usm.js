@@ -1,6 +1,13 @@
-var drawType = null,
+var mouseFrom = {},
+    mouseTo = {},
+    drawType = null,
+    canvasObjectIndex = 0,
     textbox = null;
+var drawWidth = 2; //笔触宽度
 var color = "#E34F51"; //画笔颜色
+var drawingObject = null; //当前绘制对象
+var moveCount = 1; //绘制移动计数器
+var doDrawing = false; // 绘制状态
 var respo_data = null;
 window.onload = function () {
     $(function () {
