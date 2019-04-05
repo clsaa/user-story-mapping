@@ -117,6 +117,47 @@ function new_line(options) {
     return line;
 }
 
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
+
+function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+function download_png() {
+
+    domtoimage.toPng(document.getElementById('c'), {quality: 1})
+        .then(function (dataUrl) {
+            var link = document.createElement('a');
+            link.download = 'download-UserStoryMapping.png';
+            link.href = dataUrl;
+            link.click();
+        });
+}
+
+function download_pdf(canvas) {
+    var contentWidth = canvas.width;
+    var contentHeight = canvas.height;
+    //一页pdf显示html页面生成的canvas高度;
+    var pageHeight = contentWidth / 592.28 * 841.89;
+    //未生成pdf的html页面高度
+    var leftHeight = contentHeight;
+    //页面偏移
+    var position = 0;
+    //a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高
+    var imgWidth = 595.28;
+    var imgHeight = 592.28 / contentWidth * contentHeight;
+
+    var imgData = canvas.toDataURL('image/jpeg', 1.0);
+    var doc = new jsPDF('', 'pt', 'a4');
+    doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    doc.save("download-UserStoryMapping.pdf");
+}
+
 var saved_time = "";
 
 function save(canvas) {
@@ -169,45 +210,4 @@ function load(canvas) {
             console.log(data.status);
         }
     })
-}
-
-function getQueryString(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]);
-    return null;
-}
-
-function sleep(time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
-}
-
-function download_png() {
-
-    domtoimage.toPng(document.getElementById('c'), {quality: 1})
-        .then(function (dataUrl) {
-            var link = document.createElement('a');
-            link.download = 'download-UserStoryMapping.png';
-            link.href = dataUrl;
-            link.click();
-        });
-}
-
-function download_pdf(canvas) {
-    var contentWidth = canvas.width;
-    var contentHeight = canvas.height;
-    //一页pdf显示html页面生成的canvas高度;
-    var pageHeight = contentWidth / 592.28 * 841.89;
-    //未生成pdf的html页面高度
-    var leftHeight = contentHeight;
-    //页面偏移
-    var position = 0;
-    //a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高
-    var imgWidth = 595.28;
-    var imgHeight = 592.28 / contentWidth * contentHeight;
-
-    var imgData = canvas.toDataURL('image/jpeg', 1.0);
-    var doc = new jsPDF('', 'pt', 'a4');
-    doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-    doc.save("download-UserStoryMapping.pdf");
 }
