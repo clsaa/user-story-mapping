@@ -30,25 +30,19 @@ window.onload = function () {
         console.log(options.e.clientX, options.e.clientY);
         switch (drawType) {
             case "move":
-                console.log("move");
                 break;
             case "line":
-                console.log("line");
                 canvas.add(new_line(options));
                 break;
             case "text":
-                console.log("text");
                 canvas.add(new_note(options));
                 break;
             case "remove":
-                console.log("remove");
                 canvas.remove(options.target);
                 break;
             case "save":
-                console.log("save");
                 break;
             default:
-                console.log("default");
                 break;
         }
     });
