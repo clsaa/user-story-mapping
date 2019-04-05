@@ -16,10 +16,16 @@ function count() {
 }
 
 function load_ok_usm() {
+    var name = jQuery("#search_string").val();
+    if (name === undefined || name == null || name === "") {
+        url = "/v1/usms?status=OK";
+    } else {
+        url = "/v1/usms?status=OK&name=" + name;
+    }
     $.ajax({
         type: 'GET',
         async: true,
-        url: "/v1/usms?stauts=OK",
+        url: url,
         success: function (data) {
             if (data.toString().startsWith('<!DOCTYPE html>')) {
                 window.location.reload()
@@ -36,7 +42,7 @@ function load_ok_usm() {
                     '<tr>' +
                     '<td>' + (i) + '</td>' +
                     '<td class="hidden">' + item.id + '</td>' +
-                    '<td>' + '<a href='+'"/usm.html?id='+item.id+'"'+'>'+item.name+'</a>' + '</td>' +
+                    '<td>' + '<a href=' + '"/usm.html?id=' + item.id + '"' + '>' + item.name + '</a>' + '</td>' +
                     '<td>' + item.description + '</td>' +
                     '<td class="hidden">' + item.data + '</td>' +
                     '<td>' + item.mtime + '</td>' +
@@ -66,7 +72,7 @@ function load_deleted_usm() {
     $.ajax({
         type: 'GET',
         async: true,
-        url: "/v1/usms?stauts=DELETED",
+        url: "/v1/usms?status=DELETED",
         success: function (data) {
             if (data.toString().startsWith('<!DOCTYPE html>')) {
                 window.location.reload();

@@ -9,6 +9,7 @@ import com.clsaa.homework.usm.util.BeanUtils;
 import com.clsaa.rest.result.bizassert.BizAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,7 +22,6 @@ import java.util.stream.Collectors;
 public class UserStoryMappingService {
     @Autowired
     private UserStoryMappingRepository userStoryMappingRepository;
-
 
 
     public UserStoryMappingV1 addUserStoryMapping(String name, String description, String loginUserId) {
@@ -57,8 +57,12 @@ public class UserStoryMappingService {
         return existUsm;
     }
 
-    public List<UserStoryMappingV1> findUserStoryMappingsByCuserAndStatus(UserStoryMappingStatusEnum status, String loginUserId) {
-        return this.userStoryMappingRepository.findUserStoryMappingsByCuserAndStatus(loginUserId, status)
+    public List<UserStoryMappingV1> findUserStoryMappingsByCuserAndStatusAndName(String cuser, UserStoryMappingStatusEnum status, String name) {
+        if (name == null || StringUtils.isEmpty(name)) {
+            return this.userStoryMappingRepository.findUserStoryMappingsByCuserAndStatus(cuser, status)
+                    .stream().map(s -> BeanUtils.convertType(s, UserStoryMappingV1.class)).collect(Collectors.toList());
+        }
+        return this.userStoryMappingRepository.findUserStoryMappingsByCuserAndStatusAndNameLike(cuser, status, name)
                 .stream().map(s -> BeanUtils.convertType(s, UserStoryMappingV1.class)).collect(Collectors.toList());
     }
 

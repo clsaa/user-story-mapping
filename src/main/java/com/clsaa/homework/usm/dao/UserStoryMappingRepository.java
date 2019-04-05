@@ -17,4 +17,12 @@ public interface UserStoryMappingRepository extends MongoRepository<UserStoryMap
      * @return {@link List<UserStoryMapping>}
      */
     List<UserStoryMapping> findUserStoryMappingsByCuserAndStatus(String cuser, UserStoryMappingStatusEnum status);
+
+    /**
+     * @param cuser  创建人
+     * @param status 状态
+     * @param name   name
+     * @return {@link List<UserStoryMapping>}
+     */
+    List<UserStoryMapping> findUserStoryMappingsByCuserAndStatusAndNameLike(String cuser, UserStoryMappingStatusEnum status, String name);
 }

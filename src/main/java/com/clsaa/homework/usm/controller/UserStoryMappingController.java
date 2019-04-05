@@ -40,9 +40,10 @@ public class UserStoryMappingController {
     }
 
     @GetMapping("/v1/usms")
-    public List<UserStoryMappingV1> findUserStoryMappingsByCuserAndStatusV1(@RequestParam("stauts") UserStoryMappingStatusEnum status,
-                                                                            @ApiIgnore @RequestHeader("X-LOGIN-USER-ID") String loginUserId) {
-        return this.userStoryMappingService.findUserStoryMappingsByCuserAndStatus(status, loginUserId);
+    public List<UserStoryMappingV1> findUserStoryMappingsByCuserAndStatusAndNameV1(@ApiIgnore @RequestHeader("X-LOGIN-USER-ID") String loginUserId,
+                                                                                   @RequestParam("status") UserStoryMappingStatusEnum status,
+                                                                                   @RequestParam(value = "name", required = false) String name) {
+        return this.userStoryMappingService.findUserStoryMappingsByCuserAndStatusAndName(loginUserId, status, name);
     }
 
     @GetMapping("/v1/usms/{id}")
